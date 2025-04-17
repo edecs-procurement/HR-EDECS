@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'super admin' || root.child('users').child(auth.uid).child('role').val() === 'admin')"
+      }
+    },
+    "system": {
+      "initialized": {
+        ".read": true
+      },
+      ".read": "auth != null",
+      ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'super admin' || root.child('users').child(auth.uid).child('role').val() === 'admin')"
+    }
+  }
+}
